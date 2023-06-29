@@ -58,7 +58,7 @@ const MovieDetails = ( props) => {
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
 
-// added production companies 
+{/* // added production companies  */}
       <Paper component="ul" sx={styles.chipSet}>
         <li>
           <Chip label="Production Countries" sx={styles.chipLabel} color="primary" />
