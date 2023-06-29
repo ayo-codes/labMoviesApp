@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"; // manages the links
 import React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -12,6 +13,7 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import img from '../../images/film-poster-placeholder.png'
+
 
 const styles = {
   card: { maxWidth: 345 },
@@ -55,9 +57,12 @@ export default function MovieCard(props) {
         <IconButton aria-label="add to favorites" onClick={null}>
           <FavoriteIcon color="primary" fontSize="large" />
         </IconButton>
+        <Link to={`/movies/${movie.id}`}> {/*wrapped in internal link in lab 2*/} 
         <Button variant="outlined" size="medium" color="primary">
           More Info ...
         </Button>
+        </Link>
+
       </CardActions>
     </Card>
   );
