@@ -43,6 +43,15 @@ const MovieListPage = (props) => {
     else setGenreFilter(value);
   };
 
+
+  // New function to allow for adding favourite movies
+  const addToFavourites = (movieId) => {
+    const updatedMovies = movies.map((m) =>
+      m.id === movieId ? { ...m, favourite: true } : m
+    );
+    setMovies(updatedMovies);
+  };
+
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&page=1`
@@ -65,7 +74,8 @@ const MovieListPage = (props) => {
       </Grid>
       <Grid item container spacing={5}>
         {/* <MovieList movies={movies}></MovieList> */}
-        <MovieList movies={displayedMovies}></MovieList>
+        {/* added selectFavourite in lab 2 for favourite movies */}
+        <MovieList movies={displayedMovies} selectFavourite={addToFavourites} ></MovieList> 
       </Grid>
     </Grid>
     <Fab

@@ -13,6 +13,7 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import img from '../../images/film-poster-placeholder.png'
+import Avatar  from "@mui/material/Avatar"; // added during add to favourites
 
 
 const styles = {
@@ -26,9 +27,32 @@ const styles = {
 export default function MovieCard(props) {
   const movie = props.movie;
 
+  // added an event handler to help with adding favourites
+  const handleAddToFavourite = (e) => {
+    e.preventDefault();
+    props.selectFavourite(movie.id);
+  };
+
   return (
     <Card sx={styles.card}>
-      <CardHeader sx={styles.header} title={movie.title} />
+      {/* line below modified in lab 2 add to favourites */}
+      {/* <CardHeader sx={styles.header} title={movie.title} /> */}
+      <CardHeader
+      sx={styles.header}
+      avatar={
+        movie.favourite ? (
+          <Avatar sx={styles.avatar}>
+            <FavoriteIcon />
+          </Avatar>
+        ) : null
+      }
+      title={
+        <Typography variant="h5" component="p">
+          {movie.title}{" "}
+        </Typography>
+      }
+    />
+
       <CardMedia
         sx={styles.media}
         image={
@@ -54,7 +78,8 @@ export default function MovieCard(props) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={null}>
+        {/* added the event handler to the onClick */}
+        <IconButton aria-label="add to favorites" onClick={handleAddToFavourite}>
           <FavoriteIcon color="primary" fontSize="large" />
         </IconButton>
         <Link to={`/movies/${movie.id}`}> {/*wrapped in internal link in lab 2*/} 
