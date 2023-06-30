@@ -7,9 +7,24 @@ import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from "./components/siteHeader";
 import UpcomingPage from "./pages/upcomingPage";
+import { QueryClientProvider, QueryClient } from "react-query"; // added in lab4.2 for caching
+import { ReactQueryDevtools } from 'react-query/devtools'; // added in lab4.2 for caching
+
+// added in lab 4.2 for caching
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 360000,
+      refetchInterval: 360000, 
+      refetchOnWindowFocus: false
+    },
+  },
+});
+
 
 const App = () => {
   return (
+  <QueryClientProvider client={queryClient}>          {/* Added in lab 4.2 for caching */}
     <BrowserRouter>      
          {/* Older site header below removed in lab 3.5 */}
           {/* <ul>
@@ -30,6 +45,8 @@ const App = () => {
         <Route path="/reviews/:id" element={<MovieReviewPage/>} /> {/* added in lab 3 */}
       </Routes>
     </BrowserRouter>
+    <ReactQueryDevtools initialIsOpen={false} /> {/* Added in lab 4.2 for caching */}
+  </QueryClientProvider>
   );
 };
 

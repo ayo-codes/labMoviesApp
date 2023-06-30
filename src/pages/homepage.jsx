@@ -1,25 +1,45 @@
 import React, { useState, useEffect } from "react";
 import PageTemplate from '../components/templateMovieListPage';
 import { getMovies } from "../api/tmdb-api";
+import { useQuery } from "react-query"; // added in lab 4.2 for caching
+import Spinner from "../components/spinner";
 
 const HomePage = (props) => {
-  const [movies, setMovies] = useState([]);
+  const { data, error, isLoading, isError } = useQuery("discover", getMovies);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  }
+
+  const movies = data ? data.results : [];
+
+
+  // const [movies, setMovies] = useState([]); // removed in lab 4.2
+
+
+  // Redundant, but necessary to avoid app crashing.
   const favourites = movies.filter(m => m.favourite)
   localStorage.setItem('favourites', JSON.stringify(favourites))
 
-  const addToFavourites = (movieId) => {
-    const updatedMovies = movies.map((m) =>
-      m.id === movieId ? { ...m, favourite: true } : m
-    );
-    setMovies(updatedMovies);
-  };
+  const addToFavourites = (movieId) => true; // true added in lab 4.2 to allow for caching
+  
+  // removed in lab 4.2 to allow for caching
+  // {
+  //   const updatedMovies = movies.map((m) =>
+  //     m.id === movieId ? { ...m, favourite: true } : m
+  //   );
+  //   setMovies(updatedMovies);
+  // };
 
-  useEffect(() => {
-    getMovies().then(movies => {
-      setMovies(movies);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   getMovies().then(movies => {
+  //     setMovies(movies);
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   // old method before separation of concerns
   // useEffect(() => {

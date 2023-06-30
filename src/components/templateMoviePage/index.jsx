@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react"; // removed useEffect and useState for lab 4.2 caching
 import MovieHeader from "../headerMovie";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { getMovieImages } from "../../api/tmdb-api";
+import { useQuery } from "react-query";
+import Spinner from "../spinner";
 
 const styles = {
   gridListRoot: {
@@ -18,14 +20,30 @@ const styles = {
 };
 
 const TemplateMoviePage = ({ movie, children }) => {
-  const [images, setImages] = useState([]);
 
-  useEffect(() => {
-    getMovieImages(movie.id).then((images) => {
-      setImages(images);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { data , error, isLoading, isError } = useQuery(
+    ["images", { id: movie.id }],
+    getMovieImages
+  );
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  }
+  const images = data.posters 
+  
+// removed in lab 4.2 for caching   
+  // const [images, setImages] = useState([]);
+
+  // useEffect(() => {
+  //   getMovieImages(movie.id).then((images) => {
+  //     setImages(images);
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <>

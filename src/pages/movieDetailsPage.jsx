@@ -3,10 +3,12 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import MovieDetails from "../components/movieDetails/";
 import TemplateMoviePage from "../components/templateMoviePage";
-import useMovie from "../hooks/useMovie"; // added in as custom hooks 
+import { getMovie } from "../api/tmdb-api"; // removed for custom hooks lab 3.4 and added back in lab 4.2
+import { useQuery } from "react-query"; // added back in lab 4.2 
+import Spinner from "../components/spinner";
+// import useMovie from "../hooks/useMovie"; // added in as custom hooks and removed in lab 4.2
 
 // removed for lab 3 - retained for learning purposes 
-// import { getMovie } from "../api/tmdb-api"; removed for custom hooks lab 3.4
 // import Grid from "@mui/material/Grid";
 // import ImageList from "@mui/material/ImageList";
 // import ImageListItem from "@mui/material/ImageListItem";
@@ -15,7 +17,22 @@ import useMovie from "../hooks/useMovie"; // added in as custom hooks
 
 const MovieDetailsPage = (props) => {
   const { id } = useParams();
-  const [movie] = useMovie(id); // added in lab 3.4
+
+
+  const { data: movie, error, isLoading, isError } = useQuery(
+    ["movie", { id: id }],
+    getMovie
+  );
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  }
+
+  // const [movie] = useMovie(id); // added in lab 3.4 and removed in 4.2 for cache keys
   // const [movie, setMovie] = useState(null); //  removed due to custom hook of useMovie
 
   //  useEffect removed due to custom hook of useMovie
