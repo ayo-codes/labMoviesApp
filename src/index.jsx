@@ -10,6 +10,8 @@ import UpcomingPage from "./pages/upcomingPage";
 import { QueryClientProvider, QueryClient } from "react-query"; // added in lab4.2 for caching
 import { ReactQueryDevtools } from 'react-query/devtools'; // added in lab4.2 for caching
 import MoviesContextProvider from "./contexts/moviesContext"; // added in lab4.3 for contexts
+import AddMovieReviewPage from "./pages/addMovieReviewPage"; // added in lab4.5 for reviews
+
  
 // added in lab 4.2 for caching
 const queryClient = new QueryClient({
@@ -45,6 +47,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="*" element={<Navigate to="/" />} />
             <Route path="/reviews/:id" element={<MovieReviewPage/>} /> {/* added in lab 3 */}
+            <Route path="/reviews/form" element={<AddMovieReviewPage/>} /> {/* added for reviews */ }
           </Routes>
         </MoviesContextProvider>
     </BrowserRouter>
