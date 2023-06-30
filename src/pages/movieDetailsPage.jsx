@@ -1,9 +1,12 @@
-// removed for lab 3 - retained for learning purposes 
-import React, {useState, useEffect} from "react";
+
+import React from "react";
 import { useParams } from "react-router-dom";
 import MovieDetails from "../components/movieDetails/";
 import TemplateMoviePage from "../components/templateMoviePage";
-import { getMovie } from "../api/tmdb-api";
+import useMovie from "../hooks/useMovie"; // added in as custom hooks 
+
+// removed for lab 3 - retained for learning purposes 
+// import { getMovie } from "../api/tmdb-api"; removed for custom hooks lab 3.4
 // import Grid from "@mui/material/Grid";
 // import ImageList from "@mui/material/ImageList";
 // import ImageListItem from "@mui/material/ImageListItem";
@@ -12,13 +15,15 @@ import { getMovie } from "../api/tmdb-api";
 
 const MovieDetailsPage = (props) => {
   const { id } = useParams();
-  const [movie, setMovie] = useState(null);
+  const [movie] = useMovie(id); // added in lab 3.4
+  // const [movie, setMovie] = useState(null); //  removed due to custom hook of useMovie
 
-  useEffect(() => {
-    getMovie(id).then((movie) => {
-      setMovie(movie);
-    });
-  }, [id]);
+  //  useEffect removed due to custom hook of useMovie
+  // useEffect(() => {
+  //   getMovie(id).then((movie) => {
+  //     setMovie(movie);
+  //   });
+  // }, [id]);
 
   return (
     <>
