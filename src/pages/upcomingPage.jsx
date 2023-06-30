@@ -6,7 +6,7 @@ import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites"; // added in lab4.4 
 
 const UpcomingPage = (props) => {
-  const { data, error, isLoading, isError } = useQuery("upcoming", getUpcomingMovies);
+  const { data, error, isLoading, isError } = useQuery("upcoming", getUpcomingMovies); // caching key upcoming
 
   if (isLoading) {
     return <Spinner />;
