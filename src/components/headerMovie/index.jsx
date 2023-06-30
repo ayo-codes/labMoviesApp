@@ -5,6 +5,11 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import HomeIcon from "@mui/icons-material/Home";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Avatar  from "@mui/material/Avatar";
+import  CardHeader   from "@mui/material/CardHeader";
+
+
 
 const styles = {
     root: {  
@@ -14,19 +19,44 @@ const styles = {
     flexWrap: "wrap",
     padding: 1.5,
   },
+  avatar: {
+    backgroundColor: "rgb(255, 0, 0)",
+  },
 };
 
 const MovieHeader = (props) => {
   const movie = props.movie;
+  console.log(movie)
+  // Get movies from local storage.
+  const favouriteMovies = JSON.parse(localStorage.getItem("favourites")); 
+  console.log(favouriteMovies)
+
+  for (let i=0; i <= favouriteMovies.length -1; i++){
+    if (movie.id == favouriteMovies[i].id) {
+    var favourite = true;
+    }
+  }
 
   return (
     <Paper component="div" sx={styles.root}>
       <IconButton aria-label="go back">
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
+      
+      <CardHeader
+      sx={styles.header}
+      avatar={
+        favourite ? (
+          <Avatar sx={styles.avatar}>
+            <FavoriteIcon />
+          </Avatar>
+        ) : null
+      }
+      />
+
 
       <Typography variant="h4" component="h3">
-        {movie.title}{"   "}
+        {movie.title}{"   "} 
         <a href={movie.homepage}>
           <HomeIcon color="primary"  fontSize="='large"/>
         </a>
