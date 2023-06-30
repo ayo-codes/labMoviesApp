@@ -3,7 +3,8 @@ import PageTemplate from '../components/templateMovieListPage';
 import { getMovies } from "../api/tmdb-api";
 import { useQuery } from "react-query"; // added in lab 4.2 for caching
 import Spinner from "../components/spinner";
-import AddToFavouritesIcon from "../components/cardIcons/addToFavourites"; // added in lab4.4 
+import AddToFavouritesIcon from "../components/cardIcons/addToFavourites"; // added in lab4.4
+import AddToPlaylistIcon from "../components/cardIcons/addToPlaylists"; // added to exercise 4.4 
 
 const HomePage = (props) => {
   const { data, error, isLoading, isError } = useQuery("discover", getMovies);
@@ -62,8 +63,9 @@ const HomePage = (props) => {
       title='Discover Movies'
       movies={movies}
       action={(movie) => {
-        return <AddToFavouritesIcon movie={movie} />  // render prop
+        return <AddToFavouritesIcon movie={movie} /> // render prop
       }}
+
       // selectFavourite={addToFavourites} // removed in lab 4.4
     />
   );

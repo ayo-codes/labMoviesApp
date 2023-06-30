@@ -3,8 +3,9 @@ import PageTemplate from '../components/templateMovieListPage';
 import { getUpcomingMovies } from "../api/tmdb-api";
 import { useQuery } from "react-query"; // added in lab 4.2 for caching
 import Spinner from "../components/spinner";
-// import AddToFavouritesIcon from "../components/cardIcons/addToFavourites"; // added in lab4.4
-import PlaylistAdd from "@mui/icons-material/PlaylistAdd";
+// import AddToFavouritesIcon from "../components/cardIcons/addToFavourites"; // removed in exercise 4.2
+import PlaylistAdd from "@mui/icons-material/PlaylistAdd"; // added in exercise 4.2
+import AddToPlaylistIcon from "../components/cardIcons/addToPlaylists";
 
 const UpcomingPage = (props) => {
   const { data, error, isLoading, isError } = useQuery("upcoming", getUpcomingMovies); // caching key upcoming
@@ -23,7 +24,7 @@ const UpcomingPage = (props) => {
       title='Upcoming Movies'
       movies={movies}
       action={(movie) => {
-        return <PlaylistAdd movie={movie} />  // render prop
+        return <AddToPlaylistIcon movie={movie} />  // render prop
       }}
     />
   );

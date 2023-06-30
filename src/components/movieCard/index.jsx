@@ -26,13 +26,26 @@ const styles = {
 
 // added in lab 4.3 for context 
 export default function MovieCard({ movie , action }) {      // Destructure props added action in lab 4.4
-  const { favourites, addToFavourites } = useContext(MoviesContext);
+  const { favourites, addToFavourites ,addToPlaylists , myPlaylistMovies } = useContext(MoviesContext);
 
   if (favourites.find((id) => id === movie.id)) {
     movie.favourite = true;
   } else {
     movie.favourite = false
   }
+
+  // if (myPlaylistMovies.find((id) => id === movie.id)) {
+  //   movie.myPlaylistMovies = true;
+  // } else {
+  //   movie.myPlaylistMovies = false
+  // }
+
+  //   removed in lab 4.4 
+  const handleAddToPlaylists = (e) => {
+    e.preventDefault();
+    addToPlaylists(movie);
+  };
+
 
   // removed in lab 4.4 
   // const handleAddToFavourite = (e) => {
