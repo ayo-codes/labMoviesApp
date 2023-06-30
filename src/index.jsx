@@ -9,7 +9,8 @@ import SiteHeader from "./components/siteHeader";
 import UpcomingPage from "./pages/upcomingPage";
 import { QueryClientProvider, QueryClient } from "react-query"; // added in lab4.2 for caching
 import { ReactQueryDevtools } from 'react-query/devtools'; // added in lab4.2 for caching
-
+import MoviesContextProvider from "./contexts/moviesContext"; // added in lab4.3 for contexts
+ 
 // added in lab 4.2 for caching
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,15 +36,17 @@ const App = () => {
           <Link to="/movies/favourites">Favourites</Link>
         </li>
       </ul> */}
-     <SiteHeader />  {/* New site header added in lab 3.5 */}
-      <Routes>
-        <Route path="/movies/favourites" element={<FavouriteMoviesPage />}/> {/* added new */}
-        <Route path="/movies/upcoming" element={<UpcomingPage />}/> {/* added new */}
-        <Route path="/movies/:id" element={<MoviePage />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="*" element={<Navigate to="/" />} />
-        <Route path="/reviews/:id" element={<MovieReviewPage/>} /> {/* added in lab 3 */}
-      </Routes>
+      <SiteHeader />  {/* New site header added in lab 3.5 */}
+        <MoviesContextProvider>
+          <Routes>
+            <Route path="/movies/favourites" element={<FavouriteMoviesPage />}/> {/* added new */}
+            <Route path="/movies/upcoming" element={<UpcomingPage />}/> {/* added new */}
+            <Route path="/movies/:id" element={<MoviePage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/reviews/:id" element={<MovieReviewPage/>} /> {/* added in lab 3 */}
+          </Routes>
+        </MoviesContextProvider>
     </BrowserRouter>
     <ReactQueryDevtools initialIsOpen={false} /> {/* Added in lab 4.2 for caching */}
   </QueryClientProvider>

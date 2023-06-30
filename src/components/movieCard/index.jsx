@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"; // manages the links
-import React from "react";
+import React , { useContext } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -14,7 +14,7 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import img from '../../images/film-poster-placeholder.png'
 import Avatar  from "@mui/material/Avatar"; // added during add to favourites
-
+import { MoviesContext } from "../../contexts/moviesContext";
 
 const styles = {
   card: { maxWidth: 345 },
@@ -24,14 +24,30 @@ const styles = {
   },
 };
 
-export default function MovieCard(props) {
-  const movie = props.movie;
+// added in lab 4.3 for context 
+export default function MovieCard({ movie }) {      // Destructure props
+  const { favourites, addToFavourites } = useContext(MoviesContext);
 
-  // added an event handler to help with adding favourites
+  if (favourites.find((id) => id === movie.id)) {
+    movie.favourite = true;
+  } else {
+    movie.favourite = false
+  }
+
   const handleAddToFavourite = (e) => {
     e.preventDefault();
-    props.selectFavourite(movie.id);
+    addToFavourites(movie);
   };
+
+// removed in lab 4.3 for global context
+// export default function MovieCard(props) {
+//   const movie = props.movie;
+
+//   // added an event handler to help with adding favourites
+//   const handleAddToFavourite = (e) => {
+//     e.preventDefault();
+//     props.selectFavourite(movie.id);
+//   };
 
   return (
     <Card sx={styles.card}>
