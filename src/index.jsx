@@ -6,6 +6,7 @@ import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from "./components/siteHeader";
+import UpcomingPage from "./pages/upcomingPage";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
      <SiteHeader />  {/* New site header added in lab 3.5 */}
       <Routes>
         <Route path="/movies/favourites" element={<FavouriteMoviesPage />}/> {/* added new */}
+        <Route path="/movies/upcoming" element={<UpcomingPage />}/> {/* added new */}
         <Route path="/movies/:id" element={<MoviePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<Navigate to="/" />} />
@@ -38,7 +40,7 @@ rootElement.render(<App />);
 // old page retained for learning purposes
 // import React from "react";
 // import { createRoot } from "react-dom/client";
-// // import HomePage from "./pages/homePage"; // commented out in lab 1 
+// import HomePage from "./pages/homePage"; // commented out in lab 1 
 // import MovieDetailsPage from './pages/movieDetailsPage'
 
 // import sample from './stories/sampleData'
