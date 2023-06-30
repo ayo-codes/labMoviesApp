@@ -4,6 +4,8 @@ import { MoviesContext } from "../contexts/moviesContext"; // added in lab4.3
 import { useQueries } from "react-query"; // added in lab4.3
 import { getMovie } from "../api/tmdb-api"; // added in lab4.3
 import Spinner from "../components/spinner"; // added in lab4.3
+import RemoveFromFavouritesIcon from "../components/cardIcons/removeFromFavourites";
+import WriteReviewIcon from "../components/cardIcons/writeReview";
 
 const FavouriteMoviesPage = (props) => {
   const { favourites: movieIds } = useContext(MoviesContext);
@@ -26,7 +28,7 @@ const FavouriteMoviesPage = (props) => {
 
   const movies = favouriteMovieQueries.map((q) => q.data);
 
-  const toDo = () => true;
+// const toDo = () => true; // removed in lab4.4 
 
 // removed in lab 4.3 
 // const FavouriteMoviesPage = (props) => {
@@ -38,7 +40,15 @@ const FavouriteMoviesPage = (props) => {
     <PageTemplate
       title="Favourite Movies"
       movies={movies}
-      selectFavourite={toDo}
+      action={(movie) => {
+        return (
+          <>
+            <RemoveFromFavouritesIcon movie={movie} />
+            <WriteReviewIcon movie={movie} />
+          </>
+        );
+      }}
+      // selectFavourite={toDo} // removed in lab 4.4 
     />
   );
 };

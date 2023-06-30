@@ -3,6 +3,7 @@ import PageTemplate from '../components/templateMovieListPage';
 import { getMovies } from "../api/tmdb-api";
 import { useQuery } from "react-query"; // added in lab 4.2 for caching
 import Spinner from "../components/spinner";
+import AddToFavouritesIcon from "../components/cardIcons/addToFavourites"; // added in lab4.4 
 
 const HomePage = (props) => {
   const { data, error, isLoading, isError } = useQuery("discover", getMovies);
@@ -20,11 +21,11 @@ const HomePage = (props) => {
   // const [movies, setMovies] = useState([]); // removed in lab 4.2
 
 
-  // Redundant, but necessary to avoid app crashing.
-  const favourites = movies.filter(m => m.favourite)
-  localStorage.setItem('favourites', JSON.stringify(favourites))
+  // Redundant, but necessary to avoid app crashing. removed in lab 4.4
+  // const favourites = movies.filter(m => m.favourite)
+  // localStorage.setItem('favourites', JSON.stringify(favourites))
 
-  const addToFavourites = (movieId) => true; // true added in lab 4.2 to allow for caching
+  // const addToFavourites = (movieId) => true; // true added in lab 4.2 to allow for caching
   
   // removed in lab 4.2 to allow for caching
   // {
@@ -60,7 +61,10 @@ const HomePage = (props) => {
     <PageTemplate
       title='Discover Movies'
       movies={movies}
-      selectFavourite={addToFavourites}
+      action={(movie) => {
+        return <AddToFavouritesIcon movie={movie} />  // render prop
+      }}
+      // selectFavourite={addToFavourites} // removed in lab 4.4
     />
   );
 };

@@ -11,7 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton"; // removed in lab 4.4
 import img from '../../images/film-poster-placeholder.png'
 import Avatar  from "@mui/material/Avatar"; // added during add to favourites
 import { MoviesContext } from "../../contexts/moviesContext";
@@ -25,7 +25,7 @@ const styles = {
 };
 
 // added in lab 4.3 for context 
-export default function MovieCard({ movie }) {      // Destructure props
+export default function MovieCard({ movie , action }) {      // Destructure props added action in lab 4.4
   const { favourites, addToFavourites } = useContext(MoviesContext);
 
   if (favourites.find((id) => id === movie.id)) {
@@ -34,10 +34,11 @@ export default function MovieCard({ movie }) {      // Destructure props
     movie.favourite = false
   }
 
-  const handleAddToFavourite = (e) => {
-    e.preventDefault();
-    addToFavourites(movie);
-  };
+  // removed in lab 4.4 
+  // const handleAddToFavourite = (e) => {
+  //   e.preventDefault();
+  //   addToFavourites(movie);
+  // };
 
 // removed in lab 4.3 for global context
 // export default function MovieCard(props) {
@@ -95,9 +96,11 @@ export default function MovieCard({ movie }) {      // Destructure props
       </CardContent>
       <CardActions disableSpacing>
         {/* added the event handler to the onClick */}
-        <IconButton aria-label="add to favorites" onClick={handleAddToFavourite}>
+        {/* removed iconButton in lab4.4 and added in action */}
+        {/* <IconButton aria-label="add to favorites" onClick={handleAddToFavourite}>
           <FavoriteIcon color="primary" fontSize="large" />
-        </IconButton>
+        </IconButton> */}
+        {action(movie)}
         <Link to={`/movies/${movie.id}`}> {/*wrapped in internal link in lab 2*/} 
         <Button variant="outlined" size="medium" color="primary">
           More Info ...
